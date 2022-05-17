@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         edt_no = findViewById(R.id.edt_no);
         btn_acao = findViewById(R.id.btn_acao);
 
+        //liga botão as views
         rdn_inserePrimeiro = findViewById(R.id.inserePrimeiro);
         rdn_insereDepois = findViewById(R.id.insereDepois);
         rdn_insereUltimo = findViewById(R.id.insereUltimo);
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         btn_acao.setOnClickListener(view -> {
             if (grupo.getCheckedRadioButtonId() != -1){
+                valores = "";
+                txt_lista.setText("");
                 metodo(grupo.getCheckedRadioButtonId());
                 //Toast.makeText(MainActivity.this, "ID: " + grupo.getCheckedRadioButtonId(), Toast.LENGTH_SHORT).show();
             }else{
@@ -67,53 +70,43 @@ public class MainActivity extends AppCompatActivity {
         String nome = edt_nome_ou_no.getText().toString();
         String no = edt_no.getText().toString();
 
-        if (id == rdn_inserePrimeiro.getId()) {
-            if (!nome.isEmpty()){
-                valores = "";
-                txt_lista.setText("");
-                inserePrimeiro(lista, nome);
-            }else{
-                txt_lista.setText("Digite um nome");
-            }
-        }
-        if (id == rdn_insereDepois.getId()) {
-            if (!nome.isEmpty() && !no.isEmpty()){
-                int noo = Integer.parseInt(no);
-                valores = "";
-                txt_lista.setText("");
-                insereDepois(lista, nome, noo);
-            }else{
-                txt_lista.setText("Digite um nome e um nó");
-            }
-        }
-        if (id == rdn_insereUltimo.getId()) {
-            if (!nome.isEmpty()){
-                valores = "";
-                txt_lista.setText("");
-                insereUltimo(lista, nome);
-            }else{
-                txt_lista.setText("Digite um nome");
-            }
-        }
-        if (id == rdn_removePrimeiro.getId()) {
-            valores = "";
-            txt_lista.setText("");
-            removePrimeiro(lista);
-        }
-        if (id == rdn_removeUltimo.getId()) {
-            valores = "";
-            txt_lista.setText("");
-            removeUltimo(lista);
-        }
-        if (id == rdn_remove.getId()) {
-            if (!no.isEmpty()){
-                int noo = Integer.parseInt(no);
-                valores = "";
-                txt_lista.setText("");
-                remove(lista, noo);
-            }else{
-                txt_lista.setText("Digite um nó para remover");
-            }
+        switch (id){
+            case R.id.inserePrimeiro:
+                if (!nome.isEmpty()){
+                    inserePrimeiro(lista, nome);
+                }else{
+                    txt_lista.setText("Digite um nome");
+                }
+                break;
+            case R.id.insereDepois:
+                if (!nome.isEmpty() && !no.isEmpty()){
+                    int noo = Integer.parseInt(no);
+                    insereDepois(lista, nome, noo);
+                }else{
+                    txt_lista.setText("Digite um nome e um nó");
+                }
+                break;
+            case R.id.insereUltimo:
+                if (!nome.isEmpty()){
+                    insereUltimo(lista, nome);
+                }else{
+                    txt_lista.setText("Digite um nome");
+                }
+                break;
+            case R.id.removePrimeiro:
+                removePrimeiro(lista);
+                break;
+            case R.id.removeUltimo:
+                removeUltimo(lista);
+                break;
+            case R.id.remove:
+                if (!no.isEmpty()){
+                    int noo = Integer.parseInt(no);
+                    remove(lista, noo);
+                }else{
+                    txt_lista.setText("Digite um nó para remover");
+                }
+                break;
         }
     }
 
